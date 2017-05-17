@@ -1,28 +1,25 @@
-import '../static/main.css';
-import 'jquery-datetimepicker/build/jquery.datetimepicker.full.min.js';
-import 'jquery-datetimepicker/jquery.datetimepicker.css';
-import jQuery from 'jquery';
-
-import Vue from 'vue';
+import Vue       from 'vue';
 import VueRouter from 'vue-router';
-import Home from './Home.vue';
-import Admin from './Admin.vue';
 
-window.jQuery = jQuery;
+import Admin     from './Admin.vue';
+import App       from './App.vue';
+import Home      from './Home.vue';
+
+import './main.css';
 
 Vue.use(VueRouter);
 
-const router = new VueRouter();
+const routes = [
+    { path: '/', component: Home },
+    { path: '/admin', component: Admin }
+];
 
-const App = Vue.extend({});
+const router = new VueRouter({ routes });
 
-router.map({
-    '/': {
-      component: Home
-    },
-    '/admin': {
-      component: Admin
-    }
+const Client = Vue.extend({
+    router,
+    components: { App },
+    template  : '<App></App>'
 });
 
-router.start(App, 'body');
+new Client().$mount('#app');

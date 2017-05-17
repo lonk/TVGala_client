@@ -2,6 +2,4 @@
 node_modules/
 dist/
 npm-debug.log
-src/config.js
-static/build.js
-static/build.js.map
+yarn-error.log
