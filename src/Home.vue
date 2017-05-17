@@ -1,26 +1,54 @@
 <template>
     <div class="b-display">
         <div class="b-header">
-            <div class="b-header__clock">{{ currentHour | hour }}</div>
+            <div class="b-header__clock">
+                <b-clock></b-clock>
+            </div>
             <div class="b-header__message">Vos tweets sur le<br /><strong>#GalaUTT2017</strong></div>
         </div>
+
+        <div class="b-separator"></div>
+
+        <div class="b-content">
+            <div class="b-content__schedules">
+                <b-schedules :schedules="schedules"></b-schedules>
+            </div>
+            <div class="b-content__messages"></div>
+        </div>
+
+        <div class="b-separator"></div>
     </div>
 </template>
 
 <script>
-import './lib/dates.js';
+import io from 'socket.io-client';
+
+import Clock     from './Clock.vue';
+import Schedules from './Schedules.vue';
+
+import config from './config.js';
 
 export default {
-    data () {
+    data() {
         return {
-            currentHour: new Date()
+            socket   : io.connect(`http://${config.server.host}:${config.server.port}`),
+            schedules: []
         };
     },
 
-    mounted () {
-        setInterval(() => {
-          this.currentHour = new Date();
-        }, 1000);
+    components: {
+        'b-clock'    : Clock,
+        'b-schedules': Schedules
+    },
+
+    mounted() {
+        this.socket.on('connect', () => {
+            console.log('Client has connected to the server!');
+        });
+
+        this.socket.on('schedules', (data) => {
+            this.schedules = data;
+        });
     }
 }
 </script>
@@ -58,5 +86,26 @@ export default {
     width: 18%;
     margin-right: 8%;
     font-size: 3.5vmin;
+}
+
+.b-separator {
+    width: 100%;
+    height: 1.5%;
+}
+
+.b-content {
+    width: 100%;
+    height: 71.6%;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+}
+
+.b-content > .b-content__schedules {
+    width: 60%;
+}
+
+.b-content > .b-content__messages {
+    width: 39%;
 }
 </style>

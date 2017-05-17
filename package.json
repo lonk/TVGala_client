@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "node-static": "^0.7.9",
+    "socket.io-client": "^2.0.1",
     "vue": "^2.2.1",
     "vue-router": "^2.5.3"
   },
