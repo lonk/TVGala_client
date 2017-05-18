@@ -19,32 +19,40 @@
         </div>
 
         <div class="g-separator"></div>
+
+        <div class="g-footer">
+            <g-informations :informations="informations" :images="images"></g-informations>
+        </div>
     </div>
 </template>
 
 <script>
 import io from 'socket.io-client';
 
-import Clock     from './Clock.vue';
-import Messages  from './Messages.vue';
-import Schedules from './Schedules.vue';
+import Clock        from './Clock.vue';
+import Informations from './Informations.vue';
+import Messages     from './Messages.vue';
+import Schedules    from './Schedules.vue';
 
 import config from './config.js';
 
 export default {
     data() {
         return {
-            censors  : [],
-            messages : [],
-            socket   : io.connect(`http://${config.server.host}:${config.server.port}`),
-            schedules: []
+            censors     : [],
+            images      : [],
+            informations: [],
+            messages    : [],
+            socket      : io.connect(`http://${config.server.host}:${config.server.port}`),
+            schedules   : []
         };
     },
 
     components: {
-        'g-clock'    : Clock,
-        'g-messages' : Messages,
-        'g-schedules': Schedules
+        'g-clock'       : Clock,
+        'g-informations': Informations,
+        'g-messages'    : Messages,
+        'g-schedules'   : Schedules
     },
 
     mounted() {
@@ -54,7 +62,16 @@ export default {
 
         this.socket.on('censors', (data) => {
             this.censors = data
-                .sort((a,b) => (b.word.length - a.word.length));
+                .sort((a, b) => (b.word.length - a.word.length));
+        });
+
+        this.socket.on('images', (data) => {
+            this.images = data
+                .map(image => `http://${config.server.host}:${config.server.port}/images/${image}`);
+        });
+
+        this.socket.on('informations', (data) => {
+            this.informations = data;
         });
 
         this.socket.on('schedules', (data) => {
@@ -122,5 +139,10 @@ export default {
 
 .g-content > .g-content__messages {
     width: 39%;
+}
+
+.g-footer {
+    width: 100%;
+    height: 15.4%;
 }
 </style>
