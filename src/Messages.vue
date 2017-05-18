@@ -4,7 +4,7 @@
             <td class="g-messages__line__hour">{{ message.time | hour }}</td>
             <td class="g-messages__line__content">
                 <span class="g-messages__line__content__name">@{{ message.from }}</span><br />
-                {{ message.message | censor censors }}
+                {{ message.message | censor(censors) }}
             </td>
         </tr>
     </transition-group>
