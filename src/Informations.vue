@@ -18,7 +18,8 @@ export default {
         return {
             informationIndex: -1,
             imagesIndex     : -1,
-            imagesPerInfo   : 5
+            imagesPerInfo   : 5,
+            timeBetweenInfos: 3000
         };
     },
 
@@ -28,7 +29,7 @@ export default {
                 return this.paginatedImages[this.imagesIndex];
             }
 
-            return '';
+            return [];
         },
 
         displayedInformation() {
@@ -71,7 +72,7 @@ export default {
             }
 
             this.informationIndex += 1;
-            setTimeout(this.displayNextInformation, 2000);
+            setTimeout(this.displayNextInformation, this.timeBetweenInfos);
         },
 
         displayNextImages() {
@@ -82,7 +83,7 @@ export default {
             }
 
             this.imagesIndex += 1;
-            setTimeout(this.displayNextImages, 2000);
+            setTimeout(this.displayNextImages, this.timeBetweenInfos);
         }
     },
 
@@ -103,12 +104,12 @@ export default {
 }
 
 .g-informations__images > .g-informations__images__image {
-    margin-top:0.5%;
-    max-height:90%;
-    max-width:15%;
-    margin-left:2%;
-    margin-right:2%;
-    vertical-align:middle;
-    line-height:100%;
+    margin-top: 0.5%;
+    max-height: 90%;
+    max-width: 15%;
+    margin-left: 2%;
+    margin-right: 2%;
+    vertical-align: middle;
+    line-height: 100%;
 }
 </style>
