@@ -22,7 +22,7 @@ function parseDate (date) {
     return `${day}/${month}/${year} ${hour}:${minutes}`;
 }
 
-function convertDate (dateString) {
+export function convertDate (dateString) {
     const regexp = /([0-9]{2})\/([0-9]{2})\/([0-9]{4}) ([0-9]{2}):([0-9]{2})/;
     const result = dateString.match(regexp);
 
