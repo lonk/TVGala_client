@@ -1,10 +1,10 @@
 <template>
-    <table class="b-schedules">
-        <tr v-for="schedule in displayedSchedules" class="b-schedules__line">
-            <td class="b-schedules__line__start" v-if="!isPast(schedule.start)">{{ schedule.start | hour }}</td>
-            <td class="b-schedules__line__start" v-else>En cours</td>
-            <td class="b-schedules__line__name">{{ schedule.name }}</td>
-            <td class="b-schedules__line__location">{{ schedule.location }}</td>
+    <table class="g-schedules">
+        <tr v-for="schedule in displayedSchedules" class="g-schedules__line">
+            <td class="g-schedules__line__start" v-if="!isPast(schedule.start)">{{ schedule.start | hour }}</td>
+            <td class="g-schedules__line__start" v-else>En cours</td>
+            <td class="g-schedules__line__name">{{ schedule.name }}</td>
+            <td class="g-schedules__line__location">{{ schedule.location }}</td>
         </tr>
     </table>
 </template>
@@ -51,35 +51,34 @@ export default {
 </script>
 
 <style lang="css">
-.b-schedules {
+.g-schedules {
     width: 100%;
+    border-spacing: 30px;
 }
 
-.b-schedules > .b-schedules__line {
+.g-schedules > .g-schedules__line {
     width: 100%;
     max-height: 12%;
     text-align: center;
     font-size: 3vmin;
 }
 
-.b-schedules__line > td {
-    padding-top: 2%;
+.g-schedules__line > td {
     max-height: 11%;
 }
 
-.b-schedules__line > .b-schedules__line__start {
+.g-schedules__line > .g-schedules__line__start {
     width: 20%;
     font-weight: bold;
     font-size: 4vmin;
 }
 
-.b-schedules__line > .b-schedules__line__name {
+.g-schedules__line > .g-schedules__line__name {
     width: 50%;
     font-size: 4.1vmin;
 }
 
-.b-schedules__line > .b-schedules__line__location {
-    padding-top: 1.5%;
+.g-schedules__line > .g-schedules__line__location {
     width: 30%;
 }
 </style>

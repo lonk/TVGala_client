@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-export function parseHour (date) {
+function parseHour (date) {
     const dateJs = new Date(date);
 
     const hour    = `0${dateJs.getHours()}`.slice(-2);
@@ -9,7 +9,7 @@ export function parseHour (date) {
     return `${hour}:${minutes}`;
 }
 
-export function parseDate (date) {
+function parseDate (date) {
     const dateJs = new Date(date);
 
     const day   = `0${dateJs.getDate()}`.slice(-2);
@@ -22,7 +22,7 @@ export function parseDate (date) {
     return `${day}/${month}/${year} ${hour}:${minutes}`;
 }
 
-export function convertDate (dateString) {
+function convertDate (dateString) {
     const regexp = /([0-9]{2})\/([0-9]{2})\/([0-9]{4}) ([0-9]{2}):([0-9]{2})/;
     const result = dateString.match(regexp);
 
