@@ -32,13 +32,15 @@
               locale="fr"
               header-format="DD MMM"
               cancel="Annuler"
-              next="Suivant"></b-datetime-picker>
+              next="Suivant"
+              class="limit-width"></b-datetime-picker>
             <b-datetime-picker
               v-model="end"
               locale="fr"
               header-format="DD MMM"
               cancel="Annuler"
-              next="Suivant"></b-datetime-picker><br />
+              next="Suivant"
+              class="limit-width"></b-datetime-picker><br />
             <input type="submit" value="Ajouter" />
         </form>
         <br /><br />
@@ -52,9 +54,11 @@
 </template>
 
 <script>
-import '@buckless/datetime-picker';
 import config          from './config';
 import { convertDate } from './lib/dates';
+
+moment.locale('fr');
+
 const headers = {
     headers: {
         Accept        : 'application/json',
@@ -71,8 +75,8 @@ export default {
             message     : '',
             name        : '',
             location    : '',
-            start       : '',
-            end         : ''
+            start       : new Date(),
+            end         : new Date()
         }
     },
     methods: {
@@ -155,8 +159,8 @@ export default {
             const end      = this.end;
             this.name      = '';
             this.location  = '';
-            this.start     = '';
-            this.end       = '';
+            this.start     = new Date();
+            this.end       = new Date();
             return {
                 name,
                 location,
@@ -173,23 +177,23 @@ export default {
         }
     },
     mounted() {
-    fetch(`http://${config.server.host}:${config.server.port}/informations`)
-        .then(res => res.json())
-        .then((results) => {
-            this.informations = results;
-        });
+        fetch(`http://${config.server.host}:${config.server.port}/informations`)
+            .then(res => res.json())
+            .then((results) => {
+                this.informations = results;
+            });
 
-    fetch(`http://${config.server.host}:${config.server.port}/schedules`)
-        .then(res => res.json())
-        .then((results) => {
-            this.schedules = results;
-        });
+        fetch(`http://${config.server.host}:${config.server.port}/schedules`)
+            .then(res => res.json())
+            .then((results) => {
+                this.schedules = results;
+            });
 
-    fetch(`http://${config.server.host}:${config.server.port}/censors`)
-        .then(res => res.json())
-        .then((results) => {
-            this.censors = results;
-        });
+        fetch(`http://${config.server.host}:${config.server.port}/censors`)
+            .then(res => res.json())
+            .then((results) => {
+                this.censors = results;
+            });
     }
 }
 </script>
@@ -211,5 +215,9 @@ html, body {
 .admin-table td {
     border: 1px solid black;
     padding: 5px;
+}
+
+.limit-width {
+    width: 150px;
 }
 </style>

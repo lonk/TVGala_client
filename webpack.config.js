@@ -53,6 +53,12 @@ module.exports = {
   devtool: '#eval-source-map'
 }
 
+module.exports.plugins = [
+  new webpack.ProvidePlugin({
+    moment: 'moment'
+  })
+];
+
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html

@@ -1,3 +1,5 @@
+@import '../node_modules/@buckless/datetime-picker/dist/datetime-picker.min.css';
+
 html, body {
     width: 100%;
     height: 100%;
