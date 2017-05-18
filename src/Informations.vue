@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div class="g-informations" v-if="show">
+        <div class="g-informations" v-show="show">
             <span v-if="informationIndex > -1" class="g-informations__message">{{ displayedInformation }}</span>
             <span v-if="imagesIndex > -1" class="g-informations__images">
                 <img :src="image" v-for="image in displayedImages" class="g-informations__images__image" />

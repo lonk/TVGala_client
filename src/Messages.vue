@@ -1,13 +1,13 @@
 <template>
-    <table class="g-messages">
-        <tr v-for="message in messages" class="g-messages__line">
+    <transition-group name="fade" tag="table" class="g-messages">
+        <tr v-for="message in messages" :key="message.time" class="g-messages__line">
             <td class="g-messages__line__hour">{{ message.time | hour }}</td>
             <td class="g-messages__line__content">
                 <span class="g-messages__line__content__name">@{{ message.from }}</span><br />
                 {{ message.message | censor censors }}
             </td>
         </tr>
-    </table>
+    </transition-group>
 </template>
 
 <script>
@@ -38,6 +38,7 @@ export default {
     font-size: 2.8vmin;
     border-right: 1px double white;
     padding-right: 20px;
+    width: 10%;
 }
 
 .g-messages__line > .g-messages__line__content {

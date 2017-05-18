@@ -1,12 +1,12 @@
 <template>
-    <table class="g-schedules">
-        <tr v-for="schedule in displayedSchedules" class="g-schedules__line">
+    <transition-group name="fade" tag="table" class="g-schedules">
+        <tr v-for="schedule in displayedSchedules" :key="schedule.name" class="g-schedules__line">
             <td class="g-schedules__line__start" v-if="!isPast(schedule.start)">{{ schedule.start | hour }}</td>
             <td class="g-schedules__line__start" v-else>En cours</td>
             <td class="g-schedules__line__name">{{ schedule.name }}</td>
             <td class="g-schedules__line__location">{{ schedule.location }}</td>
         </tr>
-    </table>
+    </transition-group>
 </template>
 
 <script>
