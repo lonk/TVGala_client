@@ -1,10 +1,12 @@
 <template>
-    <div class="g-informations">
-        <span v-if="informationIndex > -1" class="g-informations__message">{{ displayedInformation }}</span>
-        <span v-if="imagesIndex > -1" class="g-informations__images">
-            <img :src="image" v-for="image in displayedImages" class="g-informations__images__image" />
-        </span>
-    </div>
+    <transition name="fade">
+        <div class="g-informations" v-if="show">
+            <span v-if="informationIndex > -1" class="g-informations__message">{{ displayedInformation }}</span>
+            <span v-if="imagesIndex > -1" class="g-informations__images">
+                <img :src="image" v-for="image in displayedImages" class="g-informations__images__image" />
+            </span>
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -19,7 +21,8 @@ export default {
             informationIndex: -1,
             imagesIndex     : -1,
             imagesPerInfo   : 5,
-            timeBetweenInfos: 3000
+            show            : false,
+            timeBetweenInfos: 5000
         };
     },
 
@@ -72,6 +75,8 @@ export default {
             }
 
             this.informationIndex += 1;
+            setTimeout(this.showInfo, 500);
+            setTimeout(this.hideInfo, this.timeBetweenInfos - 500);
             setTimeout(this.displayNextInformation, this.timeBetweenInfos);
         },
 
@@ -81,9 +86,18 @@ export default {
                 this.imagesIndex = -1;
                 return this.displayNextInformation();
             }
-
             this.imagesIndex += 1;
+            setTimeout(this.showInfo, 500);
+            setTimeout(this.hideInfo, this.timeBetweenInfos - 500);
             setTimeout(this.displayNextImages, this.timeBetweenInfos);
+        },
+
+        hideInfo() {
+            this.show = false;
+        },
+
+        showInfo() {
+            this.show = true;
         }
     },
 
